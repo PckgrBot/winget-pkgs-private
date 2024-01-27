@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - manifests/**
+      - manifests/**/*
   workflow_dispatch:
 
 concurrency:

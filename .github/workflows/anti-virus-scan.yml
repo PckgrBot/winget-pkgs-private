@@ -1,0 +1,97 @@
+name: Scan manifests 
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'manifests/**/*.installer.yaml'
+jobs:
+  changed-files:
+    name: Get changed files
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      all_changed_files: ${{ steps.changed-files.outputs.all_changed_files }}
+    steps:
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: |
+            manifests/**/*.installer.yaml
+          json: "true"
+      - name: List all changed files
+        run: |
+          ALL_CHANGED_FILES=$(echo "$ALL_CHANGED_FILES_JSON" | jq -r '.[]')
+          for file in "$ALL_CHANGED_FILES"; do
+            echo "$file was changed"
+          done
+        env:
+          ALL_CHANGED_FILES_JSON: ${{ steps.changed-files.outputs.all_changed_files }}
+  scan:
+    runs-on: windows-latest
+    needs: changed-files
+    strategy:
+      matrix:
+        file: ${{ fromJson(needs.changed-files.outputs.all_changed_files) }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      
+      - run: Install-Module -Name powershell-yaml -Force -Scope CurrentUser -Repository PSGallery
+
+      - uses: Cyberboss/install-winget@f2bbd477c74da39732b479bf6c6c855a7f9f011c
+
+      - run: winget install wingetcreate --disable-interactivity --accept-source-agreements --accept-package-agreements
+
+      - run: winget settings --enable LocalManifestFiles
+
+      - name: Get parent directory
+        id: parent-dir
+        run: |
+          $parentDir = Split-Path -Path ${{ matrix.file }} -Parent
+          echo "::set-output name=parent-dir::$parentDir"
+
+      - name: winget validate
+        run: |
+          winget validate --manifest ${{ steps.parent-dir.outputs.parent-dir }}
+          If ($LASTEXITCODE -ne 0) {
+            Write-Error "Validation failed for ${{ steps.parent-dir.outputs.parent-dir }}
+            exit 1
+          }
+
+      - name: Windows Defender Scan
+        run: |
+          Write-OutPut "Scanning ${{ matrix.file }}"
+          Write-Output "- Getting installer urls..."
+          $installerUrls = Get-Content '${{ matrix.file }}' | ConvertFrom-Yaml | Select-Object -ExpandProperty Installer | Select-Object -ExpandProperty InstallerUrl
+          Write-Output " - Found $($installerUrls.Count) installer urls"
+          $installerUrls | ForEach-Object {
+            Write-Output " - Scanning $_"
+            $tempFile = New-TemporaryFile
+            Invoke-WebRequest -Uri $_ -OutFile $tempFile
+            $fileName = $tempFile.FullName
+            Write-Output " - Downloaded to $fileName"
+            $taskName = "FileScan-$(Get-Random)"
+            schtasks /create /tn $taskName /sc DAILY /st 13:00 /ru SYSTEM /rl HIGHEST /tr "'C:\Program Files\Windows Defender\MpCmdRun.exe' -Scan -ScanType 3 -File $fileName"
+            Start-ScheduledTask -TaskName $taskName
+            while ((Get-ScheduledTask -TaskName $taskName).State -ne "Ready") {
+              Write-Output " - Waiting for scan to complete..."
+              Start-Sleep -Seconds 5
+            }
+            $threatDetection = Get-MpThreatDetection | Where-Object {$_.Resources -contains $fileName}
+            if ($threatDetection) {
+              Write-Error " - Threat detected in $fileName"
+              exit 1
+            }
+      
+      - name: winget install
+        run: |
+          winget install --manifest ${{ steps.parent-dir.outputs.parent-dir }}
+          If ($LASTEXITCODE -ne 0) {
+            Write-Error "Install failed for ${{ steps.parent-dir.outputs.parent-dir }}
+            exit 1
+          }
