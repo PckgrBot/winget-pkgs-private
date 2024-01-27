@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - manifests/**
+    types: [opened, synchronize, reopened]
 jobs:
   changed-files:
     name: Get changed files
