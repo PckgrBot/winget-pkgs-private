@@ -22,6 +22,8 @@ jobs:
           files: |
             manifests/**/*.installer.yaml
           json: "true"
+      - name: View JSON output
+        run: echo "${{ steps.changed-files.outputs.all_changed_files }}"
       - name: List all changed files
         run: |
           ALL_CHANGED_FILES=$(echo "$ALL_CHANGED_FILES_JSON" | jq -r '.[]')
