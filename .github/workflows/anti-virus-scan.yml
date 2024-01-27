@@ -4,7 +4,8 @@ on:
     branches:
       - main
     paths:
-      - manifests/**/*
+      - manifests/**
+    types: [opened, synchronize, reopened]
 jobs:
   changed-files:
     name: Get changed files
