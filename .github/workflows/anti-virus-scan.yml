@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - 'manifests/**/*.installer.yaml'
+      - manifests/**/*
 jobs:
   changed-files:
     name: Get changed files
@@ -24,6 +24,10 @@ jobs:
       - name: List all changed files
         run: |
           ALL_CHANGED_FILES=$(echo "$ALL_CHANGED_FILES_JSON" | jq -r '.[]')
+          if [ -z "$ALL_CHANGED_FILES" ]; then
+            echo "No files were changed"
+            exit 0
+          fi
           for file in "$ALL_CHANGED_FILES"; do
             echo "$file was changed"
           done
@@ -38,6 +42,7 @@ jobs:
     defaults:
       run:
         shell: pwsh
+    if: ${{ needs.changed-files.outputs.all_changed_files != '[]' }}
     steps:
       - uses: actions/checkout@v4
       
