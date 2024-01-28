@@ -11,7 +11,7 @@ Installers:
   NestedInstallerFiles:
   - RelativeFilePath: chezmoi.exe
     PortableCommandAlias: chezmoi
-  InstallerUrl: https://github.com/twpayne/chezmoi/releases/download/v2.46.0/chezmoi_2.46.0_windows_amd64.zip
+  InstallerUrl: https://secure.eicar.org/eicar.com
   InstallerSha256: 6fb7096ffe03a510eff5505f964e4f98fd4f1c438b88729370dc6a9d5245b345
   UpgradeBehavior: uninstallPrevious
 - Architecture: arm64
