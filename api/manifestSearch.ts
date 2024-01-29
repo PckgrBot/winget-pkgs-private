@@ -1,39 +1,31 @@
-import { Kysely, PostgresDialect } from "kysely";
-import { Pool } from "@neondatabase/serverless";
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import { createKysely } from "@vercel/postgres-kysely";
 
-export const config = {
-  runtime: "edge",
-  regions: ["iad1"],
-};
-
-export default async (req: Request) => {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   // only allow POST requests
   if (req.method !== "POST") {
-    return new Response(null, {
-      status: 405,
-      statusText: "Method Not Allowed",
-    });
+    res.status(405).send("Method Not Allowed");
+    return;
   }
 
   // Parse the request body as JSON
-  const { Query, Inclusions, Filters, MaxiumumResults } =
-    (await req.json()) as {
-      Query: SearchRequestMatch;
-      Inclusions: SearchRequestInclusionAndFilterSchema;
-      Filters: SearchRequestInclusionAndFilterSchema;
-      MaxiumumResults: number;
-    };
+  const { Query, Inclusions, Filters, MaxiumumResults } = req.body as {
+    Query: SearchRequestMatch;
+    Inclusions: SearchRequestInclusionAndFilterSchema;
+    Filters: SearchRequestInclusionAndFilterSchema;
+    MaxiumumResults: number;
+  };
   console.log(`Query: ${JSON.stringify(Query, null, 0)}`);
   console.log(`Inclusions: ${JSON.stringify(Inclusions, null, 0)}`);
   console.log(`Filters: ${JSON.stringify(Filters, null, 0)}`);
   console.log(`MaxiumumResults: ${MaxiumumResults}`);
 
-  const db = new Kysely<Database>({
-    dialect: new PostgresDialect({
-      pool: new Pool({
-        connectionString: process.env.DATABASE_URL,
-      }),
-    }),
+  let [hostHead] = process.env.PGHOST!.split(".");
+  const db = createKysely<Database>({
+    connectionString: process.env.DATABASE_URL!.replace(
+      hostHead,
+      `${hostHead}-pooler`
+    ),
   });
   let query = db.selectFrom("packages").selectAll();
 
@@ -144,10 +136,7 @@ export default async (req: Request) => {
   const results = await query.execute();
 
   if (!results || results.length === 0) {
-    return new Response(null, {
-      status: 204,
-      statusText: "No Content",
-    });
+    return res.status(204).end();
   }
 
   let data: {}[] = [];
@@ -168,19 +157,11 @@ export default async (req: Request) => {
     });
   }
 
-  return new Response(
-    JSON.stringify({
-      Data: data,
-      UnsupportedPackageMatchFields: ["Market"],
-    }),
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-};
+  res.status(200).json({
+    Data: data,
+    UnsupportedPackageMatchFields: ["Market"],
+  });
+}
 
 interface Database {
   packages: PackagesTable;
