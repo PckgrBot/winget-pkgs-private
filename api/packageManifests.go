@@ -38,6 +38,7 @@ func PackageManifests(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(res.Body).Decode(&manifests)
 
 	var installers, default_locale, package_version interface{}
+	var locales []interface{}
 	for _, manifest_raw := range manifests {
 		manifest := yaml.MustParse(manifest_raw.Content + "\n---\n")
 		switch manifest.Field("ManifestType").Value.YNode().Value {
@@ -90,6 +91,15 @@ func PackageManifests(w http.ResponseWriter, r *http.Request) {
 			manifest.PipeE(yaml.Clear("ManifestVersion"))
 
 			yaml.Unmarshal([]byte(manifest.MustString()), &default_locale)
+		case "locale":
+			manifest.PipeE(yaml.Clear("PackageIdentifier"))
+			manifest.PipeE(yaml.Clear("PackageVersion"))
+			manifest.PipeE(yaml.Clear("ManifestType"))
+			manifest.PipeE(yaml.Clear("ManifestVersion"))
+
+			var locale interface{}
+			yaml.Unmarshal([]byte(manifest.MustString()), &locale)
+			locales = append(locales, locale)
 		case "version":
 			package_version = manifest.Field("PackageVersion").Value.YNode().Value
 		}
@@ -105,7 +115,7 @@ func PackageManifests(w http.ResponseWriter, r *http.Request) {
 					"PackageVersion": package_version,
 					"DefaultLocale":  default_locale,
 					"Installers":     installers,
-					"Locales":        nil,
+					"Locales":        locales,
 				}),
 			},
 		},
