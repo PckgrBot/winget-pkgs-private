@@ -5,6 +5,6 @@
     "kysely": "^0.27.2"
   },
   "devDependencies": {
-    "vercel": "^33.4.0"
+    "vercel": "^33.4.1"
   }
 }
