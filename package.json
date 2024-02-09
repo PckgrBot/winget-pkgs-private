@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@vercel/node": "^3.0.17",
+    "@vercel/node": "^3.0.18",
     "@vercel/postgres-kysely": "^0.7.2",
     "kysely": "^0.27.2"
   }
