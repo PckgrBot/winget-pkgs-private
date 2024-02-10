@@ -1,0 +1,13 @@
+# Created with komac v2.0.4
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.5.0.schema.json
+
+PackageIdentifier: RedHat.Podman-Desktop_Pckgr
+PackageVersion: 1.7.1
+InstallerType: nullsoft
+ReleaseDate: 2024-02-06
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/containers/podman-desktop/releases/download/v1.7.1/podman-desktop-airgap-1.7.1-setup.exe
+  InstallerSha256: C75F9ABAEEDAD6FD571EF465257C70D1BA3CB27CC8455C5FDCCB59434CCFCB41
+ManifestType: installer
+ManifestVersion: 1.5.0

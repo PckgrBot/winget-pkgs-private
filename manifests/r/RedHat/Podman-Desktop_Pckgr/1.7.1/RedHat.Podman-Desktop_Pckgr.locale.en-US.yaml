@@ -1,0 +1,31 @@
+# Created with komac v2.0.4
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.5.0.schema.json
+
+PackageIdentifier: RedHat.Podman-Desktop_Pckgr
+PackageVersion: 1.7.1
+PackageLocale: en-US
+Publisher: RedHat
+PublisherUrl: https://github.com/containers
+PackageName: Podman Desktop
+License: Apache-2.0
+LicenseUrl: https://github.com/containers/podman-desktop/blob/HEAD/LICENSE
+Copyright: Copyright © 2022 Podman Desktop
+ShortDescription: Manage different container engines from a single UI and tray icon
+Tags:
+- container
+- containers
+- desktop
+- hacktoberfest
+- kubernetes
+- podman
+- podman-desktop
+- tray-application
+- ui
+ReleaseNotes: |-
+  What's Changed
+  - chore: backport changes from main branch to 1.7 branch by @benoitf in #5853
+  - [1.7.x] chore: use Button for installing extension (#5856) by @benoitf in #5863
+  Full Changelog:
+ReleaseNotesUrl: https://github.com/containers/podman-desktop/releases/tag/v1.7.1
+ManifestType: defaultLocale
+ManifestVersion: 1.5.0
