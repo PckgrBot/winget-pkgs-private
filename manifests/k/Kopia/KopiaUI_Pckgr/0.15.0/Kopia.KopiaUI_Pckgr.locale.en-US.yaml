@@ -1,4 +1,4 @@
-# Created with YamlCreate.ps1 v2.2.10 $debug=QUSU.CRLF.5-1-19041-3570.Win32NT
+# Created with komac v2.0.4
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.5.0.schema.json
 
 PackageIdentifier: Kopia.KopiaUI_Pckgr
@@ -11,9 +11,8 @@ PrivacyUrl: https://kopia.io/docs/privacy-policy
 Author: Kopia Authors
 PackageName: KopiaUI
 PackageUrl: https://github.com/kopia/kopia
-License: Apache License 2.0
-LicenseUrl: https://github.com/kopia/kopia/blob/master/LICENSE
-# Copyright:
+License: Apache-2.0
+LicenseUrl: https://github.com/kopia/kopia/blob/HEAD/LICENSE
 CopyrightUrl: https://github.com/kopia/kopia/blob/master/LICENSE
 ShortDescription: Cross-platform backup tool for Windows, macOS & Linux with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication. CLI and GUI included.
 Description: |-
@@ -26,10 +25,45 @@ Tags:
 - cloud
 - encryption
 - foss
-# ReleaseNotes:
-# ReleaseNotesUrl:
-# PurchaseUrl:
-# InstallationNotes:
+ReleaseNotes: |-
+  Graphical User Interface
+  - fixed hint text visibility in dark mode (#3393) by Jarek Kowalski
+  - Fixing colors in dark theme (#3392) by Jarek Kowalski
+  Command-Line Interface
+  - Fixing help text when editing policies externally (#3357) by Christoph Anderson
+  - Convert --run-missed from bool to Enum (#3337) by PhracturedBlue
+  - Attempt to fix socket-activated tests (#3318) by PhracturedBlue
+  KopiaUI App
+  - Fix missing window when external displays are detached (#3336) by Christoph Anderson
+  Repository
+  - fixed handling of content.Info (#3356) by Jarek Kowalski
+  - added fs.DirectoryIterator (#3365) by Jarek Kowalski
+  - Move encryption into a common package in preparation to handle secrets (#3351) by PhracturedBlue
+  Server
+  - New Feature improve scheduler algorithm to run missed snapshots  (#3323) by PhracturedBlue
+  Snapshots
+  - Minor reorder of defer funcs for streaming files (#3364) by ashmrtn
+  - Name policy tests to make debugging easier (#3332) by PhracturedBlue
+  Dependencies
+  - bump github.com/chromedp/chromedp from 0.9.2 to 0.9.3 (#3391) by dependabot[bot]
+  - bump golang.org/x/net from 0.16.0 to 0.17.0 (#3382) by dependabot[bot]
+  - bump ossf/scorecard-action from 2.2.0 to 2.3.0 (#3378) by dependabot[bot]
+  - bump github/codeql-action from 2.21.9 to 2.22.1 (#3377) by dependabot[bot]
+  - bump the common-golang-dependencies group with 8 updates (#3376) by dependabot[bot]
+  - bump the kopia-ui-npm-dependencies group (#3366) by dependabot[bot]
+  - bump the common-golang-dependencies group with 3 updates (#3370) by dependabot[bot]
+  - bump github/codeql-action from 2.21.8 to 2.21.9 (#3369) by dependabot[bot]
+  - bump github/codeql-action from 2.21.7 to 2.21.8 (#3355) by dependabot[bot]
+  - bump the common-golang-dependencies group with 2 updates (#3353) by dependabot[bot]
+  - bump actions/checkout from 4.0.0 to 4.1.0 (#3354) by dependabot[bot]
+  - bump docker/setup-qemu-action from 2 to 3 (#3324) by dependabot[bot]
+  - bump go.uber.org/zap from 1.25.0 to 1.26.0 (#3328) by dependabot[bot]
+  - bump github.com/klauspost/compress from 1.16.7 to 1.17.0 (#3329) by dependabot[bot]
+  - bump the common-golang-dependencies group with 9 updates (#3327) by dependabot[bot]
+  - bump github/codeql-action from 2.21.5 to 2.21.7 (#3325) by dependabot[bot]
+  Development Dependencies
+  - bump electron from 26.1.0 to 26.2.1 in /app (#3320) by dependabot[bot]
+ReleaseNotesUrl: https://github.com/kopia/kopia/releases/tag/v0.15.0
 Documentations:
 - DocumentLabel: What is Kopia?
   DocumentUrl: https://kopia.io/docs
