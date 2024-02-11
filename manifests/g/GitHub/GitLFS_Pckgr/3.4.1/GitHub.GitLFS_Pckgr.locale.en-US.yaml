@@ -1,4 +1,5 @@
-# Created with komac v2.0.4
+# Created using WinGet Automation (CLI)
+
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.5.0.schema.json
 
 PackageIdentifier: GitHub.GitLFS_Pckgr
@@ -11,7 +12,7 @@ Author: Github, Inc.
 PackageName: Git LFS
 PackageUrl: https://github.com/git-lfs
 License: MIT License
-LicenseUrl: https://github.com/git-lfs/git-lfs/blob/HEAD/LICENSE.md
+LicenseUrl: https://github.com/git-lfs/git-lfs/raw/main/LICENSE.md
 Copyright: Copyright (c) 2014-2021 GitHub, Inc. and Git LFS contributors
 CopyrightUrl: https://github.com/git-lfs/git-lfs/raw/main/LICENSE.md
 ShortDescription: Git Large File Storage is a command line extension and specification for managing large files with Git.
@@ -24,35 +25,8 @@ Tags:
 - go
 - golang
 ReleaseNotes: |-
-  This is a bugfix release which resolves a bug introduced in the
-  v3.4.0 release, where Git LFS may crash if the Git credential manager
-  returns credentials containing one or more empty fields.Bugs
+  Bugs
   - Fix a panic in the credential code #5490 (@bk2204)
-  Packages
-  Up to date packages are available on PackageCloud and Homebrew.RPM RHEL 7/CentOS 7
-  RPM RHEL 8/Rocky Linux 8
-  RPM RHEL 9/Rocky Linux 9
-  Debian 10
-  Debian 11
-  Debian 12SHA-256 hashes:
-  git-lfs-darwin-amd64-v3.4.1.zip
-  da94d8f63e126638561c4d3ab1a7e8e5d80ae4129732cbb80a8b6f20a0407cd1git-lfs-darwin-arm64-v3.4.1.zip
-  49916d640237d90dc31c709ea4a0f8faa0ca5948e78f444c2b6e082481ac43c4git-lfs-freebsd-386-v3.4.1.tar.gz
-  e2b50708397d0c6ca8010645781d682d35a76276189c51f62c5b2c5be086738cgit-lfs-freebsd-amd64-v3.4.1.tar.gz
-  c52de674f0a60e45780e8b3704784c71354b1663a48e036e803163f2f2d18698git-lfs-linux-386-v3.4.1.tar.gz
-  16a512284e106ef5d5342b1ba1a3fb2527611273a76ea8ff35b1462f84f933d4git-lfs-linux-amd64-v3.4.1.tar.gz
-  1772dc260961db27958088740b7e9ecebf945abad8c2d504d412448f53faf147git-lfs-linux-arm-v3.4.1.tar.gz
-  c39ef07f2d95768c9f88a8fa4a958ff6e2156b2bd9b4c1a6dc5793bf87b63d39git-lfs-linux-arm64-v3.4.1.tar.gz
-  f93c5070223d95eb44fea0ee2f2db26656793d5f3417366f77dd20b9518c46cegit-lfs-linux-ppc64le-v3.4.1.tar.gz
-  11e214af98ee8d393988e6ee3d26a5835f30e6880db43abef99dab5e8596b2d4git-lfs-linux-s390x-v3.4.1.tar.gz
-  cb27167b46214293e220d6402c64145cd3b722ec9fe8ec0256d62d234cd2b341git-lfs-v3.4.1.tar.gz
-  89acbe51799c5d7bdf6d8e6704fcd1a07735ee7d1ed67a0bc646a5d9a9d1099fgit-lfs-windows-386-v3.4.1.zip
-  b518b470071bd1465ee6468ba43701fc2b04495501b4bc533c593c426b6d14a7git-lfs-windows-amd64-v3.4.1.zip
-  a6f9fda2792bc441c0ec5df8c1d64274bddfac09fb702e78d839cb1cf0a13d8fgit-lfs-windows-arm64-v3.4.1.zip
-  0ab256f3d395f95190e5448de16ae3173a462cfe13df761417b6489f326210e5git-lfs-windows-v3.4.1.exe
-  0a7e5a4b8d3ed3e2732a783f89f79d7ee931603f9ca36b822f5938599482dc5fhashes.asc
-  1d1d3eea80bde2cb56fa0bf9b624624a70b9645bdf5e37d444f06c14a4faf330sha256sums.asc
-  80617c659397fcfea39b5cb514c1d29466e03c2203bbf3d4b5db908a8b5d7f13
 ReleaseNotesUrl: https://github.com/git-lfs/git-lfs/releases/tag/v3.4.1
 ManifestType: defaultLocale
 ManifestVersion: 1.5.0
