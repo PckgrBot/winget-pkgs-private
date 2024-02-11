@@ -1,4 +1,4 @@
-# Created with komac v2.0.4
+# Created using wingetcreate 1.5.7.0
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.5.0.schema.json
 
 PackageIdentifier: Audacity.Audacity_Pckgr
@@ -20,7 +20,6 @@ FileExtensions:
 - ogv
 - pcm
 - wav
-ReleaseDate: 2023-11-16
 Installers:
 - Architecture: x86
   InstallerUrl: https://github.com/audacity/audacity/releases/download/Audacity-3.4.2/audacity-win-3.4.2-32bit.exe
