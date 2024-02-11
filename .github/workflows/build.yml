@@ -28,7 +28,7 @@ jobs:
         winget install wingetcreate --accept-source-agreements --accept-package-agreements
         wingetcreate info
         Remove-Item -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json"
-        Invoke-WebRequest -Uri "https://gist.githubusercontent.com/Exorcism0666/3808dfc6db419f5f2ada7985c6750e70/raw/2d673d5cc6b829316cfc7797ec89e9d1189014d6/settings.json" -OutFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json"
+        Invoke-WebRequest -Uri "" -OutFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json"
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
