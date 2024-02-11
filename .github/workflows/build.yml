@@ -1,0 +1,75 @@
+name: Download, Install Dependencies and Update
+
+on:
+  workflow_dispatch:
+  schedule: [{ cron: 30 0/3 * * * }]
+
+env:
+  NAME: ""
+  EMAIL: ""
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4.1.1
+      with:
+        token: ${{ secrets.BOT_TOKEN }}
+
+    - name: Download WinGet and its dependencies
+      shell: pwsh
+      run: |
+        Install-Module -Name Microsoft.WinGet.Client -Force -Scope CurrentUser -Repository PSGallery
+        Repair-WinGetPackageManager -Latest -AllUsers -Verbose
+        winget settings --enable LocalManifestFiles
+        winget --info
+        winget install wingetcreate --accept-source-agreements --accept-package-agreements
+        wingetcreate info
+        Remove-Item -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json"
+        Invoke-WebRequest -Uri "https://gist.githubusercontent.com/Exorcism0666/3808dfc6db419f5f2ada7985c6750e70/raw/2d673d5cc6b829316cfc7797ec89e9d1189014d6/settings.json" -OutFile "$env:LOCALAPPDATA\Packages\Microsoft.WindowsPackageManagerManifestCreator_8wekyb3d8bbwe\LocalState\settings.json"
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+        cache: "pip"
+        cache-dependency-path: "**/requirements.txt"
+    - name: Setup Node.JS
+      uses: actions/setup-node@v4.0.2
+      with:
+        node-version: 20
+    - uses: pnpm/action-setup@v3.0.0
+      name: Install pnpm
+      with:
+        version: 8
+        run_install: false
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+    - uses: actions/cache@v4.0.0
+      name: Setup pnpm cache
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+    - name: Setup Git Info
+      run: |
+        git config --global user.name "${{ env.NAME }}"
+        git config --global user.email "${{ env.EMAIL }}"
+    - name: Install Dependencies
+      run: |
+        python3 -m pip install -r requirements.txt
+        pnpm install
+    - name: Publish
+      run: python3 src/pckgrbot.py ${{ secrets.TOKEN }}
+    - name: Format
+      run: npm run format
+    - name: Post on Always
+      if: always()
+      run: |
+        git add .
+        git commit -m "Update metadata"
+        git push origin --force
