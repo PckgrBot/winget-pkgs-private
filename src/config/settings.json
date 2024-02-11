@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aka.ms/wingetcreate-settings.schema.0.1.json",
+  "Telemetry": {
+    "disable": false
+  },
+  "CleanUp": {
+    "intervalInDays": 7,
+    "disable": false
+  },
+  "WindowsPackageManagerRepository": {
+    "owner": "PckgrBot",
+    "name": "winget-pkgs-private"
+  },
+  "Visual": {
+    "anonymizePaths": true
+  }
+}
