@@ -1,4 +1,4 @@
-# Created with komac v2.0.4
+# Created using wingetcreate 1.5.7.0
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.5.0.schema.json
 
 PackageIdentifier: Nextcloud.NextcloudDesktop_Pckgr
@@ -18,9 +18,8 @@ InstallerSuccessCodes:
 - 3010
 UpgradeBehavior: install
 ProductCode: '{D52513F7-7A1A-4766-B3ED-7DD573AC1F9E}'
-ReleaseDate: 2024-01-30
 AppsAndFeaturesEntries:
-- DisplayVersion: 3.11.1.20240125
+- DisplayVersion: 3.11.0.20231211
   UpgradeCode: '{FD2FCCA9-BB8F-4485-8F70-A0621B84A7F4}'
 Installers:
 - Architecture: x64
