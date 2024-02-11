@@ -1,23 +1,4 @@
 {
-  "name": "autopublish",
-  "version": "1.0.0",
-  "description": "Auto Publish Software to WinGet",
-  "main": "index.js",
-  "scripts": {
-    "comment": "tsx src/comment.ts",
-    "format": "prettier --write src",
-    "issue": "tsx src/issue.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/coolplaylin/AutoPublish.git"
-  },
-  "author": "CoolPlayLin",
-  "license": "GPL-3.0-or-later",
-  "bugs": {
-    "url": "https://github.com/coolplaylin/AutoPublish/issues"
-  },
-  "homepage": "https://github.com/coolplaylin/AutoPublish#readme",
   "devDependencies": {
     "@types/node": "^20.8.0",
     "prettier": "^3.0.3",
@@ -25,6 +6,9 @@
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",
-    "@octokit/rest": "^20.0.2"
+    "@octokit/rest": "^20.0.2",
+    "@vercel/node": "^3.0.18",
+    "@vercel/postgres-kysely": "^0.7.2",
+    "kysely": "^0.27.2"
   }
 }
