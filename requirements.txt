@@ -1,0 +1,4 @@
+requests
+pyyaml
+bs4
+tqdm
