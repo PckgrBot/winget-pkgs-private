@@ -5,10 +5,9 @@ import urllib3
 import os, sys
 urllib3.disable_warnings(InsecureRequestWarning)
 import json
-import bs4
 import re
 
-GH_TOKEN = sys.argv[1]
+GH_TOKEN = os.environ["GITHUB_TOKEN"]
 
 def report_existed(id: str, Version: str) -> None:
     print(f"{id}: {Version} has already existed, skip publishing")
@@ -17,8 +16,10 @@ def wingetcreate(path: str, debug: bool = False) -> str:
     return "wingetcreate"
 
 def command(wingetcreate: pathlib.Path, urls: str, version: str,  id: str, token: str) -> str:
-    Commands = "{} update --submit --urls {} --version {} {} --token {}".format(wingetcreate.__str__(), urls, version, id, token)
-    return Commands
+    
+     = "{} update --submit --urls {} --version {} {} --token {}".format(wingetcreate.__str__(), urls, version, id, token)
+    return 
+    
 
 def clean_string(string: str, keywords: dict[str, str]) -> str:
     for k in keywords:
@@ -47,13 +48,14 @@ def version_verify(version: str, id: str) -> bool:
     # if len([v for v in requests.get(f"https://vedantmgoyal.vercel.app/api/winget-pkgs/versions/{id}").json()[id] if v == version]) > 0:
     #    return False
     # else:
+    ## No api for this repo
         return True
 
 def do_list(id: str, version: str, mode: str) -> bool | None:
     """
     Mode: write or verify
     """
-    path = pathlib.Path(__file__).parents[0] / "config" / "list.json"
+    path = pathlib.Path(__file__).parents[0] / "list.json"
     with open(path, "r", encoding="utf-8") as f:
         try:
             JSON: dict[str, list[str]] = json.loads(f.read())
