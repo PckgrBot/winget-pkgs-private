@@ -43,10 +43,10 @@ def list_to_str(List: list) -> str:
     return new
 
 def version_verify(version: str, id: str) -> bool:
-    # if len([v for v in requests.get(f"https://vedantmgoyal.vercel.app/api/winget-pkgs/versions/{id}").json()[id] if v == version]) > 0:
-    #    return False
-    # else:
-    ## No api for this repo
+    pkg_path = "manifests" / id[0].lower() / id.replace(".", "/")
+    if (pathlib.Path(__file__).parents[1] / pkg_path / version).exists():
+        return False
+    else:
         return True
 
 def do_list(id: str, version: str, mode: str) -> bool | None:
