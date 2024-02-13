@@ -16,10 +16,8 @@ def wingetcreate(path: str, debug: bool = False) -> str:
     return "wingetcreate"
 
 def command(wingetcreate: pathlib.Path, urls: str, version: str,  id: str, token: str) -> str:
-    
-     = "{} update --submit --urls {} --version {} {} --token {}".format(wingetcreate.__str__(), urls, version, id, token)
-    return 
-    
+    Commands = "{} update --submit --urls {} --version {} {} --token {}".format(wingetcreate.__str__(), urls, version, id, token)
+    return Commands
 
 def clean_string(string: str, keywords: dict[str, str]) -> str:
     for k in keywords:
