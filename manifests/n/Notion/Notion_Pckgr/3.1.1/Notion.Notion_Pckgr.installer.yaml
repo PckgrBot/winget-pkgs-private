@@ -4,6 +4,7 @@
 PackageIdentifier: Notion.Notion_Pckgr
 PackageVersion: 3.1.1
 InstallerType: nullsoft
+Scope: user
 InstallModes:
 - silent
 UpgradeBehavior: install
