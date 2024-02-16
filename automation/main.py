@@ -98,62 +98,10 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
-# Add GitHub.GitLFS_Pckgr to Update List
-    id = "GitHub.GitLFS_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/git-lfs/git-lfs/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/git-lfs/git-lfs/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Rufus.Rufus_Pckgr to Update List
-    id = "Rufus.Rufus_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/pbatard/rufus/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/pbatard/rufus/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Kopia.KopiaUI_Pckgr to Update List
-    id = "Kopia.KopiaUI_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/kopia/kopia/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/kopia/kopia/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
 # Add Kitware.CMake_Pckgr to Update List
     id = "Kitware.CMake_Pckgr"
     JSON = requests.get("https://api.github.com/repos/Kitware/CMake/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
     Version = requests.get("https://api.github.com/repos/Kitware/CMake/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msi")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add dnGrep.dnGrep_Pckgr to Update List
-    id = "dnGrep.dnGrep_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/dnGrep/dnGrep/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/dnGrep/dnGrep/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msi")]
     if not version_verify(str_pop(Version, 0), id):
          report_existed(id, Version)
@@ -176,58 +124,6 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
-# Add Sonosaurus.SonoBus_Pckgr to Update List
-    id = "Sonosaurus.SonoBus_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/sonosaurus/sonobus/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/sonosaurus/sonobus/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(Version, id):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Kubernetes.minikube_Pckgr to Update List
-    id = "Kubernetes.minikube_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/kubernetes/minikube/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/kubernetes/minikube/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add AutoHotkey.AutoHotkey_Pckgr to Update List
-    id = "AutoHotkey.AutoHotkey_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/AutoHotkey/AutoHotkey/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/AutoHotkey/AutoHotkey/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add JohnMacFarlane.Pandoc_Pckgr to Update List
-    id = "JohnMacFarlane.Pandoc_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/jgm/pandoc/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/jgm/pandoc/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msi")]
-    if not version_verify(Version, id):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
 # Add DuongDieuPhap.ImageGlass_Pckgr to Update List
     id = "DuongDieuPhap.ImageGlass_Pckgr"
     JSON = requests.get("https://api.github.com/repos/d2phap/ImageGlass/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
@@ -241,20 +137,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
-# Add Nextcloud.NextcloudDesktop_Pckgr to Update List
-    id = "Nextcloud.NextcloudDesktop_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/nextcloud-releases/desktop/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/nextcloud-releases/desktop/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msi")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-    # Add KeePassXCTeam.KeePassXC_Pckgr to Update List
+# Add KeePassXCTeam.KeePassXC_Pckgr to Update List
     id = "KeePassXCTeam.KeePassXC_Pckgr"
     JSON = requests.get("https://api.github.com/repos/keepassxreboot/keepassxc/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
     Version = requests.get("https://api.github.com/repos/keepassxreboot/keepassxc/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
@@ -280,153 +163,10 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
-# Add RedHat.Podman-Desktop_Pckgr to Update List
-    id = "RedHat.Podman-Desktop_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/containers/podman-desktop/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/containers/podman-desktop/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith("setup.exe") and not("blockmap" in each["browser_download_url"])]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add dotPDNLLC.paintdotnet_Pckgr to Update List
-    id = "dotPDNLLC.paintdotnet_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/paintdotnet/release/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/paintdotnet/release/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".zip") and not(("winmsi" in each["browser_download_url"]) or ("portable" in each["browser_download_url"]))]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Ditto.Ditto_Pckgr to Update List
-    id = "Ditto.Ditto_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/sabrogden/Ditto/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/sabrogden/Ditto/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(Version, id):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Upscayl.Upscayl_Pckgr to Update List
-    id = "Upscayl.Upscayl_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/upscayl/upscayl/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/upscayl/upscayl/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe") and not("blockmap" in each["browser_download_url"])]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add nomacs.nomacs_Pckgr to Update List
-    id = "nomacs.nomacs_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/nomacs/nomacs/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/nomacs/nomacs/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith((".msi", ".exe"))]
-    if not version_verify(Version, id):
-        report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add PDFsam.PDFsam_Pckgr to Update List
-    id = "PDFsam.PDFsam_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/torakiki/pdfsam/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/torakiki/pdfsam/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msi") and not("asc" in each["browser_download_url"])]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add manosim.gitify_Pckgr to Update List
-    id = "manosim.gitify_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/gitify-app/gitify/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/gitify-app/gitify/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe") and not("blockmap" in each["browser_download_url"])]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
 # Add WinMerge.WinMerge_Pckgr to Update List
     id = "WinMerge.WinMerge_Pckgr"
     JSON = requests.get("https://api.github.com/repos/WinMerge/winmerge/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
     Version = requests.get("https://api.github.com/repos/WinMerge/winmerge/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add ShareX.ShareX_Pckgr to Update List
-    id = "ShareX.ShareX_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/ShareX/ShareX/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/ShareX/ShareX/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add DaxStudio.DaxStudio_Pckgr to Update List
-    id = "DaxStudio.DaxStudio_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/DaxStudio/DaxStudio/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/DaxStudio/DaxStudio/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add Gephi.Gephi_Pckgr to Update List
-    id = "Gephi.Gephi_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/gephi/gephi/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/gephi/gephi/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
-    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe") and not("x32" in each["browser_download_url"])]
-    if not version_verify(str_pop(Version, 0), id):
-         report_existed(id, Version)
-    elif do_list(id, Version, "verify"):
-        report_existed(id, Version)
-    else:
-        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
-
-# Add RaspberryPiFoundation.RaspberryPiImager_Pckgr to Update List
-    id = "RaspberryPiFoundation.RaspberryPiImager_Pckgr"
-    JSON = requests.get("https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
-    Version = requests.get("https://api.github.com/repos/raspberrypi/rpi-imager/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
     if not version_verify(str_pop(Version, 0), id):
          report_existed(id, Version)
