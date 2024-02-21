@@ -5,6 +5,7 @@ import urllib3
 import os, sys
 urllib3.disable_warnings(InsecureRequestWarning)
 import json
+import bs4
 import re
 
 GH_TOKEN = os.environ["GITHUB_TOKEN"]
