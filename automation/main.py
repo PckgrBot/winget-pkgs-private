@@ -333,6 +333,19 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
+# Add OpenJS.NodeJS_Pckgr to Update List
+    id = "OpenJS.NodeJS_Pckgr"
+    Urls:list[str] = [each["href"] for each in bs4.BeautifulSoup(requests.get("https://nodejs.org/dist/latest/", verify=False).text, "html.parser").pre.find_all("a") if "msi" in each["href"]]
+    Version = clean_string(Urls[0], {"node-v":"", "-":"", ".msi":"", "arm64":"", "x64":"", "x86":""})
+    Urls = ["https://nodejs.org/dist/{}/{}".format("v"+Version ,each) for each in Urls]
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
+    del Urls, Version, id
+
     # Updating
     if not debug:
         for each in Commands:
