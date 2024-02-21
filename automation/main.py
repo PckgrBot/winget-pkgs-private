@@ -294,8 +294,8 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
-# Add Microsoft.WindowsTerminal_Pckgr to Update List
-    id = "Microsoft.WindowsTerminal_Pckgr"
+# Add Microsoft.WindowsTerminal to Update List
+    id = "Microsoft.WindowsTerminal"
     JSON = requests.get("https://api.github.com/repos/microsoft/terminal/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
     Version = requests.get("https://api.github.com/repos/microsoft/terminal/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msixbundle")]
