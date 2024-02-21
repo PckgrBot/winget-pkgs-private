@@ -228,6 +228,98 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id
 
+# Add Microsoft.AzureCLI_Pckgr to Update List
+    id = "Microsoft.AzureCLI_Pckgr"
+    Version = re.search(r'\d+(\.\d+)+', requests.get("https://api.github.com/repos/Azure/azure-cli/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]).group()
+    Urls = [
+    f"https://azcliprod.azureedge.net/msi/azure-cli-{Version}.msi",
+    f"https://azcliprod.azureedge.net/msi/azure-cli-{Version}-x64.msi"]
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
+    del Urls, Version, id
+
+# Add Microsoft.Bicep_Pckgr to Update List
+    id = "Microsoft.Bicep_Pckgr"
+    JSON = requests.get("https://api.github.com/repos/Azure/bicep/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/Azure/bicep/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe") and ("setup" in each["browser_download_url"])]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
+# Add Microsoft.BotFrameworkComposer_Pckgr to Update List
+    id = "Microsoft.BotFrameworkComposer_Pckgr"
+    JSON = requests.get("https://api.github.com/repos/microsoft/BotFramework-Composer/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/microsoft/BotFramework-Composer/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
+# Add Microsoft.BotFrameworkEmulator_Pckgr to Update List
+    id = "Microsoft.BotFrameworkEmulator_Pckgr"
+    JSON = requests.get("https://api.github.com/repos/microsoft/BotFramework-Emulator/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/microsoft/BotFramework-Emulator/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
+# Add Microsoft.PowerToys_Pckgr to Update List
+    id = "Microsoft.PowerToys_Pckgr"
+    JSON = requests.get("https://api.github.com/repos/microsoft/PowerToys/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/microsoft/PowerToys/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".exe")]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
+# Add Microsoft.WindowsTerminal to Update List
+    id = "Microsoft.WindowsTerminal"
+    JSON = requests.get("https://api.github.com/repos/microsoft/terminal/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/microsoft/terminal/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msixbundle")]
+    if not version_verify(str_pop(Version, 0), id):
+         report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), str_pop(Version, 0), id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
+# Add Microsoft.XMLNotepad_Pckgr to Update List
+    id = "Microsoft.XMLNotepad_Pckgr"
+    JSON = requests.get("https://api.github.com/repos/microsoft/XmlNotepad/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
+    Version = requests.get("https://api.github.com/repos/microsoft/XmlNotepad/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
+    Urls = [each["browser_download_url"] for each in JSON if each["browser_download_url"].endswith(".msixbundle")]
+    if not version_verify(Version, id):
+        report_existed(id, Version)
+    elif do_list(id, Version, "verify"):
+        report_existed(id, Version)
+    else:
+        Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
+    del JSON, Urls, Version, id
+
     # Updating
     if not debug:
         for each in Commands:
