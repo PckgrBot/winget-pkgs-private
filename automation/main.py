@@ -86,8 +86,8 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         "Authorization": f"Bearer {GH_TOKEN}"
     }]
 
-# Add HandBrake.HandBrake to Update List
-    id = "HandBrake.HandBrake"
+# Add HandBrake.HandBrake_Pckgr to Update List
+    id = "HandBrake.HandBrake_Pckgr"
     JSON = requests.get("https://api.github.com/repos/HandBrake/HandBrake/releases/latest", verify=False, headers=Headers[1]).json()["assets"]
     Version = requests.get("https://api.github.com/repos/HandBrake/HandBrake/releases/latest", verify=False, headers=Headers[1]).json()["tag_name"]
     Urls = [each["browser_download_url"] for each in JSON if ("exe" in each["browser_download_url"]) and not(("blockmap" in each["browser_download_url"]) or ("sig" in each["browser_download_url"])) and (("arm64" in each["browser_download_url"]) or ("x86_64" in each["browser_download_url"]))]
