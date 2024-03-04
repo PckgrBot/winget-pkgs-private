@@ -12,7 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: Install-Module -Name Microsoft.WinGet.Client -Force -Scope CurrentUser -Repository PSGallery
-      - run: Repair-WinGetPackageManager -Latest -AllUsers -Verbose
       - run: winget settings --enable LocalManifestFiles
       - run: winget --info
       - run: winget install wingetcreate --disable-interactivity --accept-source-agreements --accept-package-agreements
