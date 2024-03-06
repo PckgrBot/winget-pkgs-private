@@ -360,6 +360,94 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
     del Urls, Version, id
 
+    # Add Zoom.Zoom to Update List
+    id = "Zoom.Zoom"
+    
+    release_notes_url = "https://zoom.us/releasenotes"
+    release_notes_page = requests.post(release_notes_url, data={
+        "os": "win7",
+        "type": "manual",
+        "upgrade64Bit": 1
+    }, headers={
+        "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)"
+    }).text
+    
+    version_pattern = r"Real-version': '(\d+\.\d+\.\d+\d+)"
+    version_match = re.search(version_pattern, release_notes_page)
+    if version_match:
+        version = version_match.group(1)
+    else:
+        print(f"Failed to find the version for {id}")
+        version = None
+    
+    urls = []
+    if version:
+        urls_pattern = rf'https://zoom\.us/client/{version}/ZoomInstallerFull\.exe'
+        urls_match = re.findall(urls_pattern, release_notes_page)
+        urls = [url for url in urls_match if "archType" not in url]  # Exclude architecture-specific URLs
+    
+    if not version_verify(version, id):
+        report_existed(id, version)
+    elif do_list(id, version, "verify"):
+        report_existed(id, version)
+    else:
+        Commands.append((command(Komac, id, list_to_str(urls), version, GH_TOKEN), (id, version, "write")))
+    del version, urls, id
+
+# Add Zoom Outlook Plugin to Update List
+    id = "Zoom.OutlookPlugin"
+    
+    url = "https://us05web.zoom.us/product/version"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)",
+        "ZM-CAP": "8300567970761955255,6445493618999263204"
+    }
+    data = {"productName": "outlookplugin"}
+    response = requests.post(url, headers=headers, data=data)
+    
+    from google.protobuf.json_format import ParseDict
+    import google.protobuf.message
+    proto_message = google.protobuf.message.Message()
+    ParseDict(response.json(), proto_message)
+    
+    version = proto_message.get('10')
+    real_version = ".".join(version.split(".")[:3])
+    download_url = f"https://zoom.us/client/{version}/ZoomOutlookPluginSetup.msi"
+    
+    if not version_verify(version, id):
+        report_existed(id, version)
+    elif do_list(id, version, "verify"):
+        report_existed(id, version)
+    else:
+        Commands.append((command(Komac, id, download_url, real_version, GH_TOKEN), (id, real_version, "write")))
+    
+    del version, real_version, download_url, id
+
+# Add Foxit.FoxitReader to Update List
+    id = "Foxit.FoxitReader"
+    
+    # Fetch the version information
+    url = "https://www.foxit.com/portal/download/getdownloadform.html?retJson=1&platform=Windows&product=Foxit-Enterprise-Reader&formId=pdf-reader-enterprise-register"
+    response = requests.get(url)
+    json_data = response.json()
+    
+    # Extract the version and download URLs
+    version = json_data["package_info"]["version"][0]
+    exe_url = f"https://cdn01.foxitsoftware.com{json_data['package_info']['down']}"
+    inno_url = f"https://cdn01.foxitsoftware.com{json_data['package_info']['down'].replace('.exe', '_Prom.exe')}"
+    
+    # Check if the version already exists or is in the list
+    if not version_verify(version, id):
+        report_existed(id, version)
+    elif do_list(id, version, "verify"):
+        report_existed(id, version)
+    else:
+        urls = [exe_url, inno_url]
+        Commands.append((command(Komac, id, list_to_str(urls), version, GH_TOKEN), (id, version, "write")))
+    
+    del url, response, json_data, version, exe_url, inno_url, id
+
+
     # Updating
     if not debug:
         for each in Commands:
