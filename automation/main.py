@@ -447,7 +447,6 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     
     del url, response, json_data, version, exe_url, inno_url, id
 
-
     # Updating
     if not debug:
         for each in Commands:
