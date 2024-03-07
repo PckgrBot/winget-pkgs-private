@@ -389,7 +389,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Komac, id, list_to_str(Urls), Version, GH_TOKEN), (id, Version, "write")))
     del JSON, Urls, Version, id, Zoom, data
 
-# Ajouter Zoom.Zoom à la liste de mise à jour
+# Ajouter Zoom.OutlookPlugin_Pckgr à la liste de mise à jour
     id = "Zoom.OutlookPlugin_Pckgr"
     Zoom = {
         "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)",
@@ -399,13 +399,9 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         "productName": "outlookplugin"
     }
     response = requests.post('https://us05web.zoom.us/product/version', headers=Zoom, data=data)
-    # Convertir la réponse en JSON
     JSON = response.json()
-    # Extraire la version
     Version = JSON['10']
-    # Extraire la version réelle
     RealVersion = '.'.join(Version.split('.')[0:3])
-    # Construire l'URL de l'installateur
     Urls = [f"https://zoom.us/client/{Version}/ZoomOutlookPluginSetup.msi"]
     if not version_verify(RealVersion, id):
         report_existed(id, RealVersion)
@@ -415,14 +411,11 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Komac, id, list_to_str(Urls), RealVersion, GH_TOKEN), (id, RealVersion, "write")))
     del JSON, Urls, Version, RealVersion, id, Zoom, response, data
 
-# Add Foxit.FoxitReader to Update List
+# Add Foxit.FoxitReader_Pckgr to Update List
     id = "Foxit.FoxitReader_Pckgr"
     response = requests.get('https://www.foxit.com/portal/download/getdownloadform.html?retJson=1&platform=Windows&product=Foxit-Enterprise-Reader&formId=pdf-reader-enterprise-register')
-    # Convertir la réponse en JSON
     JSON = response.json()
-    # Extraire la version
     Version = JSON['package_info']['version'][0]
-    # Construire les URL de l'installateur
     Urls = [
         'https://cdn01.foxitsoftware.com' + JSON['package_info']['down'],
         'https://cdn01.foxitsoftware.com' + JSON['package_info']['down'].replace('.exe', '_Prom.exe')
