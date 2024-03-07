@@ -360,8 +360,8 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
     del Urls, Version, id
 
-# Ajouter Zoom.Zoom à la liste de mise à jour
-    id = "Zoom.Zoom"
+# Add Zoom.Zoom_Pckgr to Update List
+    id = "Zoom.Zoom_Pckgr"
     Zoom = {
         "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)"
     }
@@ -387,36 +387,33 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         report_existed(id, Version)
     else:
         Commands.append((command(Komac, id, list_to_str(Urls), Version, GH_TOKEN), (id, Version, "write")))
-    del JSON, Urls, Version, id
+    del JSON, Urls, Version, id, Zoom
 
-# Add Zoom Outlook Plugin to Update List
-    id = "Zoom.OutlookPlugin"
-    
-    url = "https://us05web.zoom.us/product/version"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)",
-        "ZM-CAP": "8300567970761955255,6445493618999263204"
-    }
-    data = {"productName": "outlookplugin"}
-    response = requests.post(url, headers=headers, data=data)
-    
-    from google.protobuf.json_format import ParseDict
-    import google.protobuf.message
-    proto_message = google.protobuf.message.Message()
-    ParseDict(response.json(), proto_message)
-    
-    version = proto_message.get('10')
-    real_version = ".".join(version.split(".")[:3])
-    download_url = f"https://zoom.us/client/{version}/ZoomOutlookPluginSetup.msi"
-    
-    if not version_verify(version, id):
-        report_existed(id, version)
-    elif do_list(id, version, "verify"):
-        report_existed(id, version)
-    else:
-        Commands.append((command(Komac, id, download_url, real_version, GH_TOKEN), (id, real_version, "write")))
-    
-    del version, real_version, download_url, id
+# Ajouter Zoom.Zoom à la liste de mise à jour
+id = "Zoom.OutlookPlugin"
+Zoom = {
+    "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)",
+    "ZM-CAP": "8300567970761955255,6445493618999263204"
+}
+data = {
+    "productName": "outlookplugin"
+}
+response = requests.post('https://us05web.zoom.us/product/version', headers=Zoom, data=data)
+# Convertir la réponse en JSON
+JSON = response.json()
+# Extraire la version
+Version = JSON['10']
+# Extraire la version réelle
+RealVersion = '.'.join(Version.split('.')[0:3])
+# Construire l'URL de l'installateur
+Urls = [f"https://zoom.us/client/{Version}/ZoomOutlookPluginSetup.msi"]
+if not version_verify(RealVersion, id):
+    report_existed(id, RealVersion)
+elif do_list(id, RealVersion, "verify"):
+    report_existed(id, RealVersion)
+else:
+    Commands.append((command(Komac, id, list_to_str(Urls), RealVersion, GH_TOKEN), (id, RealVersion, "write")))
+del JSON, Urls, Version, RealVersion, id, Zoom
 
 # Add Foxit.FoxitReader to Update List
     id = "Foxit.FoxitReader"
