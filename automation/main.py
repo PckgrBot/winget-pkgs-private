@@ -360,6 +360,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
         Commands.append((command(Wingetcreate, list_to_str(Urls), Version, id, GH_TOKEN), (id, Version, "write")))
     del Urls, Version, id
 
+    '''
     # Add Zoom.Zoom to Update List
     id = "Zoom.Zoom"
     
@@ -393,6 +394,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     else:
         Commands.append((command(Komac, id, list_to_str(urls), version, GH_TOKEN), (id, version, "write")))
     del version, urls, id
+    '''
 
 # Add Zoom Outlook Plugin to Update List
     id = "Zoom.OutlookPlugin"
