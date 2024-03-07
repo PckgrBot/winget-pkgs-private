@@ -390,7 +390,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     del JSON, Urls, Version, id, Zoom, data
 
 # Ajouter Zoom.Zoom à la liste de mise à jour
-    id = "Zoom.OutlookPlugin"
+    id = "Zoom.OutlookPlugin_Pckgr"
     Zoom = {
         "User-Agent": "Mozilla/5.0 (ZOOM.Win 10.0 x64)",
         "ZM-CAP": "8300567970761955255,6445493618999263204"
@@ -416,7 +416,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
     del JSON, Urls, Version, RealVersion, id, Zoom, response, data
 
 # Add Foxit.FoxitReader to Update List
-    id = "Foxit.FoxitReader"
+    id = "Foxit.FoxitReader_Pckgr"
     response = requests.get('https://www.foxit.com/portal/download/getdownloadform.html?retJson=1&platform=Windows&product=Foxit-Enterprise-Reader&formId=pdf-reader-enterprise-register')
     # Convertir la réponse en JSON
     JSON = response.json()
