@@ -368,7 +368,7 @@ def main() -> list[tuple[str, tuple[str, str, str]]]:
             id = "OpenJS.NodeJS.LTS_Pckgr"
             JSON = each["files"]
             Version = each["version"]
-            _ = {"win-": f"node-v{Version}-", "-msi": ".msi"}
+            _ = {"win-": f"node-{Version}-", "-msi": ".msi"}
             Urls = [f"https://nodejs.org/dist/{Version}/{clean_string(each, _)}" for each in JSON if "-msi" in each]
             if not version_verify(Version, id):
                 report_existed(id, Version)
